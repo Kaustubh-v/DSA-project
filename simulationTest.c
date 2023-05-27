@@ -4,9 +4,13 @@
 #include <GL/glut.h>
 #include "integration.c"
 
-float cubeX = 0.0;  
-float cubeY = 0.0;
-float cubeZ = 0.0;
+float cube1X = 0.0;  
+float cube1Y = 0.0;
+float cube1Z = 0.0;
+
+float cube2X = 0.0;  
+float cube2Y = 0.0;
+float cube2Z = 0.0;
 
 system_node * s1;
 
@@ -62,7 +66,7 @@ void display() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 	gluPerspective(100 , 0.5 , 0.1,100000000);
-    gluLookAt(0, 0, 3884000.0, 0, 0, 0, 1.0, 0, 0);
+    gluLookAt(0, 0, 4884000.0, 0, 0, 0, 1.0, 0, 0);
     // draw objects
    drawGrid(10000000, 800000);
     // glColor3f(0.5, 0.5, 0.5);
@@ -77,12 +81,12 @@ void display() {
 //   glEnd();
     
     glPushMatrix();
-    glTranslatef(cubeX+ 10, cubeY + 10, cubeZ + 10);
+    glTranslatef(cube1X+ 10, cube1Y + 10, cube1Z + 10);
     glutSolidCube(50000);
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(0,0,0);
+    glTranslatef(cube2X , cube2Y , cube2Z);
     glutSolidCube(50000);
     glPopMatrix();
 
@@ -93,9 +97,14 @@ void update(int value) {
 
   value_update(s1);
 
-	cubeX = s1->p2->pos[0];
-  cubeY = s1->p2->pos[1];
-  cubeZ = s1->p2->pos[2];
+	cube1X = s1->p2->pos[0];
+  cube1Y = s1->p2->pos[1];
+  cube1Z = s1->p2->pos[2];
+
+  // cube2X = s1->p1->pos[0];
+  // cube2Y = s1->p1->pos[1];
+  // cube2Z = s1->p1->pos[2];
+
 // Increment the cube's x position
 // if(cubeX >= 5 || cubeX <= -5 || cubeY>= 5 || cubeY <= -5 || cubeZ >=5 || cubeZ <= -5 ){
 //	   if(frontback ==1) {

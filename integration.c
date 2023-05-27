@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-#define DELTA_T 50
+#define DELTA_T 10
 
 long double G = 0.00000000067;
 
@@ -69,37 +69,33 @@ void value_update(system_node * s1){
 	calculate_acc_velocity(s1);
 }
 
-int main(){
-	particle p1;
-	p1.mass = 6 * pow(10 , 24);
-	p1.pos[0] = 0;
-	p1.pos[1] = 0;
-	p1.pos[2] = 0;
-	p1.vel[0] = 0;
-	p1.vel[1] = 0;
-	p1.vel[2] = 0;
+// int main(){
+// 	particle p1;
+// 	p1.mass = 6 * pow(10 , 24);
+// 	p1.pos[0] = 0;
+// 	p1.pos[1] = 0;
+// 	p1.pos[2] = 0;
+// 	p1.vel[0] = 0;
+// 	p1.vel[1] = 0;
+// 	p1.vel[2] = 0;
+// 	particle p2;
+// 	p2.mass = 7.4 * pow(10 , 22);
+// 	p2.pos[0] = 3844000;
+// 	p2.pos[1] = 0;
+// 	p2.pos[2] = 0;
+// 	p2.vel[0] = -10;
+// 	p2.vel[1] = 108;
+// 	p2.vel[2] = 0;
+// 	printf("mass 1 = %Lf , mass2 = %Lf , G = %.12Lf\n" , p1.mass , p2.mass , G );
+// 	system_node s1;
+// 	s1.p1 = &p1;
+// 	s1.p2 = &p2;
+// 	s1.acc[0] = s1.acc[1] = s1.acc[2] = s1.force[0] = s1.force[1] = s1.force[2] = 0;
+// 	for(int i = 0 ; i < 100 ; i++){
+// 		value_update(&s1);
+// 		printf("%d th iteration\n" , i);
+// 		printf("pos 0 = %f , pos 1 = %f , pos 2 = %f\n" , p2.pos[0] , p2.pos[1] , p2.pos[3]);
+// 		printf("vel 0 = %f , vel 1 = %f , vel 2 = %f\n" , p2.vel[0] , p2.vel[1] , p2.vel[3]);
+// 	}
+// }
 
-	particle p2;
-	p2.mass = 7.4 * pow(10 , 22);
-	p2.pos[0] = 38440000;
-	p2.pos[1] = 0;
-	p2.pos[2] = 0;
-	p2.vel[0] = -1000;
-	p2.vel[1] = 1082;
-	p2.vel[2] = 0;
-
-	printf("mass 1 = %Lf , mass2 = %Lf , G = %.12Lf\n" , p1.mass , p2.mass , G );
-
-	system_node s1;
-	s1.p1 = &p1;
-	s1.p2 = &p2;
-	s1.acc[0] = s1.acc[1] = s1.acc[2] = s1.force[0] = s1.force[1] = s1.force[2] = 0;
-	
-
-	for(int i = 0 ; i < 500 ; i++){
-		value_update(&s1);
-		printf("%d th iteration\n" , i);
-		printf("pos 0 = %f , pos 1 = %f , pos 2 = %f\n" , p2.pos[0] , p2.pos[1] , p2.pos[3]);
-		printf("vel 0 = %f , vel 1 = %f , vel 2 = %f\n" , p2.vel[0] , p2.vel[1] , p2.vel[3]);
-	}
-}

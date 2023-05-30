@@ -10,11 +10,11 @@ typedef struct Particle {       /* Particle Node */
 
 typedef struct OctreeNode {     /* Octree Node */
     Particle* part;
-    float cluster_com[3];
-    long double cluster_mass;
     struct OctreeNode* children[8];
+    float position[3];
     float bound_top[3];
     float bound_bottom[3];
     float bound_mid[3]; 
+    int elements;
 }OctreeNode;
 

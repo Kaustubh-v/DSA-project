@@ -1,21 +1,9 @@
 #include <stdio.h>
 #include <math.h>
-#define DELTA_T 10
+#include "structs.h"
+#define DELTA_T 1
 
 long double G = 0.00000000067;
-
-typedef struct node{
-	long double mass;
-	float pos[3];
-	float vel[3];
-}particle;
-
-typedef struct system_node{
-	particle * p1;
-	particle * p2;
-	long double acc[3];
-	long double force[3];
-}system_node;
 
 void calculate_acc_velocity(system_node * s1){
 	for(int i = 0 ; i < 3 ; i++){

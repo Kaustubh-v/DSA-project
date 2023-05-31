@@ -4,7 +4,7 @@
 #include "structs.h"
 
 #define MAX_FIELD_LENGTH 100
-#define MAX_NUM_FIELDS 10
+#define MAX_NUM_FIELDS 7
 
 typedef struct {
     char fields[MAX_NUM_FIELDS][MAX_FIELD_LENGTH];
@@ -43,10 +43,10 @@ void readCSV(const char* filename, CSVRow** rows, int* numRows) {
     fclose(file);
 }
 
-int main() {
+void createsystem(system_node * s1) {
+    s1 = (system_node*)malloc(sizeof(system_node));
     CSVRow* rows;
     int numRows;
-    system_node s1;
 
     readCSV("particles.csv", &rows, &numRows);
 
@@ -81,16 +81,15 @@ int main() {
             }
             
             if( i == 0){
-                s1.p1 = p1;
+                s1->p1 = p1;
             }
-            else s1.p2 = p1;
+            else s1->p2 = p1;
             
         }
         printf("\n");
     }
 
     free(rows);
-    printf("mass of p1 = %Lf , mass of p2 = %Lf\n" , s1.p1->mass , s1.p2->mass);
+    printf("mass of p1 = %Lf , mass of p2 = %Lf\n" , s1->p1->mass , s1->p2->mass);
 
-    return 0;
 }

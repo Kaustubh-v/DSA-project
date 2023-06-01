@@ -8,7 +8,7 @@ OctreeNode *Octree_malloc_node(float x1, float y1, float z1,
     {
         return NULL;
     }
-    oct->cluster = NULL;
+    oct->bhn = NULL;
 
     for (int i = 0; i < 8; i++)
     {
@@ -31,7 +31,7 @@ OctreeNode *Octree_malloc_node(float x1, float y1, float z1,
     return oct;
 }
 
-int insert__Octree_node(OctreeNode *oct, Particle *p, float x, float y, float z)
+int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, float z)
 {
     // Case 1: If unsuccessful malloc -
     if (!oct)
@@ -41,10 +41,10 @@ int insert__Octree_node(OctreeNode *oct, Particle *p, float x, float y, float z)
     // Case 2: If elements = 0, i.e., Number of leaf nodes of current node are 0 -
     if (!oct->elements)
     {
-        oct->position[0] = x;
-        oct->position[1] = y;
-        oct->position[2] = z;
-        oct->cluster = p;
+        oct->bhn->com_pos[0] = x;
+        oct->bhn->com_pos[1] = y;
+        oct->bhn->com_pos[2] = z;
+        oct->bhn = BHN;
     }
     // Else it may happen that there are more leaf nodes, so to handle that
     // we need to call the function again
@@ -54,16 +54,16 @@ int insert__Octree_node(OctreeNode *oct, Particle *p, float x, float y, float z)
         if (oct->elements == 1)
         {
             // Taking the inital node's position to reallocate it to another subnode
-            insert_Octree_node(oct, oct->cluster, oct->position[0], oct->position[1], oct->position[2]);
-            oct->cluster = NULL;
+            insert_Octree_node(oct, oct->bhn, oct->bhn->com_pos[0], oct->bhn->com_pos[1], oct->bhn->com_pos[2]);
+            oct->bhn = BHN;
         }
-        insert_Octree_node(oct, p, x, y, z);
+        insert_Octree_node(oct, BHN, x, y, z);
     }
     (oct->elements)++;
     return (oct->elements);
 }
 
-int insert_Octree_node(OctreeNode *oct, Particle *p, float x, float y, float z)
+int insert_Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, float z)
 {
     int flag = 0; /* Cases for insertion */
     float bot_x, bot_y, bot_z;
@@ -106,7 +106,7 @@ int insert_Octree_node(OctreeNode *oct, Particle *p, float x, float y, float z)
         oct->children[flag] = Octree_malloc_node(bot_x, bot_y, bot_z, top_x, top_y, top_z);
     }
     // Verifies successful malloc as well
-    return insert__Octree_node(oct->children[flag], p, p->pos[0], p->pos[1], p->pos[2]);
+    return insert__Octree_node(oct->children[flag], BHN, BHN->com_pos[0], BHN->com_pos[1], BHN->com_pos[2]);
 }
 
 void destroy_Octree(OctreeNode *oct)

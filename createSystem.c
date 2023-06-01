@@ -4,7 +4,7 @@
 #define MAX_FIELD_LENGTH 100
 #define MAX_NUM_FIELDS 7
 
-typedef struct
+typedef struct CSVRow
 {
     char fields[MAX_NUM_FIELDS][MAX_FIELD_LENGTH];
     int numFields;

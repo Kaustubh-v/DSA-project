@@ -9,24 +9,22 @@ long double acc_y[2];
 long double acc_z[2];
 long double force[3];
 
-void calculate_acc_velocity( BarnesHut_node * bhn2 , long double force[])
+void calculate_acc_velocity(BarnesHut_node *bhn2, long double force[])
 {
 
-		acc_x[1] = force[0] / (bhn2->mass);
-		printf("acc %d = %Lf\n", 1, acc_x[1]);
-		acc_y[1] = force[1] / (bhn2->mass);
-		printf("acc %d = %Lf\n", 1, acc_y[1]);
-		acc_z[1] = force[2] / (bhn2->mass);
-		printf("acc %d = %Lf\n", 1, acc_z[1]);
-	
-	
-		bhn2->com_vel[0] = bhn2->com_vel[0] + 0.5 * acc_x[1] * DELTA_T;
-		bhn2->com_vel[1] = bhn2->com_vel[1] + 0.5 * acc_y[1] * DELTA_T;
-		bhn2->com_vel[2] = bhn2->com_vel[2] + 0.5 * acc_z[1] * DELTA_T;
-	
+	acc_x[1] = force[0] / (bhn2->mass);
+	printf("acc %d = %Lf\n", 1, acc_x[1]);
+	acc_y[1] = force[1] / (bhn2->mass);
+	printf("acc %d = %Lf\n", 1, acc_y[1]);
+	acc_z[1] = force[2] / (bhn2->mass);
+	printf("acc %d = %Lf\n", 1, acc_z[1]);
+
+	bhn2->com_vel[0] = bhn2->com_vel[0] + 0.5 * acc_x[1] * DELTA_T;
+	bhn2->com_vel[1] = bhn2->com_vel[1] + 0.5 * acc_y[1] * DELTA_T;
+	bhn2->com_vel[2] = bhn2->com_vel[2] + 0.5 * acc_z[1] * DELTA_T;
 }
 
-void calculate_position(BarnesHut_node * bhn1 , BarnesHut_node * bhn2)
+void calculate_position(BarnesHut_node *bhn1, BarnesHut_node *bhn2)
 {
 
 	for (int i = 0; i < 3; i++)
@@ -47,7 +45,7 @@ float calculate_distance(float pos1[], float pos2[])
 	return distance;
 }
 
-void calculate_force(BarnesHut_node * bhn1 , BarnesHut_node * bhn2)
+void calculate_force(BarnesHut_node *bhn1, BarnesHut_node *bhn2)
 {
 
 	float distance = calculate_distance(bhn1->com_pos, bhn2->com_pos);
@@ -62,23 +60,21 @@ void calculate_force(BarnesHut_node * bhn1 , BarnesHut_node * bhn2)
 
 	long double force_vec = (G * bhn1->mass * bhn2->mass) / (long double)(pow(mag_r_vector, 3));
 
-		force[0] = force_vec * r_vector[0];
-		force[1] = force_vec * r_vector[1];
-		force[2] = force_vec * r_vector[2];
-		printf("force %d = %Lf\n", 1, force[0]);
-		printf("force %d = %Lf\n", 1, force[1]);
-		printf("force %d = %Lf\n", 1, force[2]);
-
-
+	force[0] = force_vec * r_vector[0];
+	force[1] = force_vec * r_vector[1];
+	force[2] = force_vec * r_vector[2];
+	printf("force %d = %Lf\n", 1, force[0]);
+	printf("force %d = %Lf\n", 1, force[1]);
+	printf("force %d = %Lf\n", 1, force[2]);
 }
 
-long double * value_update(BarnesHut_node * bhn1, BarnesHut_node* bhn2)
+long double *value_update(BarnesHut_node *bhn1, BarnesHut_node *bhn2)
 {
 
-	calculate_acc_velocity( bhn2 , force );
-	calculate_position(bhn1 , bhn2);
-	calculate_force(bhn1 , bhn2);
-	//calculate_acc_velocity(bhn1 , bhn2);
+	calculate_acc_velocity(bhn2, force);
+	calculate_position(bhn1, bhn2);
+	calculate_force(bhn1, bhn2);
+	// calculate_acc_velocity(bhn1 , bhn2);
 	return force;
 }
 

@@ -1,8 +1,6 @@
-#include <math.h>
 #include <GL/glut.h>
-// #include "integration.c"
-#include "createSystem.c"
 #include "BarnesHut.c"
+#include "structs.h"
 
 float cube1X = 0.0;
 float cube1Y = 0.0;
@@ -19,6 +17,9 @@ float bound_max_x = 50000000;
 float bound_max_y = 50000000;
 float bound_max_z = 50000000;
 
+long double force_x[2];
+long double force_y[2];
+long double force_z[2];
 
 system_node *s1;
 
@@ -107,8 +108,21 @@ void display()
 void update(int value)
 {
 
-  BarnesHut * bh = BarnesHut_malloc(bound_min_x , bound_max_x , bound_min_y , bound_max_y , bound_min_z , bound_max_z);
-  
+  BarnesHut *bh = BarnesHut_malloc(bound_min_x, bound_max_x, bound_min_y, bound_max_y, bound_min_z, bound_max_z);
+
+  for (int i = 0; i < 2; i++)
+  {
+    BarnesHut_add(bh, s1->p[i]->pos[0], s1->p[i]->pos[1], s1->p[i]->pos[2] , s1->p[i]->mass);
+  }
+
+  BarnesHut_make(bh);
+
+  for (int i = 0; i < 2; i++)
+  {
+    BarnesHut_getNewPos(bh, s1, s1->p[i]->pos[0], s1->p[i]->pos[1], s1->p[i]->pos[2], s1->p[i]->mass, &force_x[i], &force_y[i], &force_z[i]);
+
+  }
+  BarnesHut_free(bh);
 
   // value_update(s1);
   // cube1X = s1->p[1]->pos[0];

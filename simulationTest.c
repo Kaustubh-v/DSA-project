@@ -114,7 +114,7 @@ void update(int value)
 
   for (int i = 0; i < 2; i++)
   {
-    BarnesHut_getNewPos(bh, s1, s1->p[i]->pos[0], s1->p[i]->pos[1], s1->p[i]->pos[2], s1->p[i]->mass, &force_x[i], &force_y[i], &force_z[i]);
+    BarnesHut_getNewPos(bh, s1, s1->p[i]->pos[0], s1->p[i]->pos[1], s1->p[i]->pos[2], s1->p[i]->mass, &force_x[i], &force_y[i], &force_z[i] , i);
   }
   BarnesHut_free(bh);
 

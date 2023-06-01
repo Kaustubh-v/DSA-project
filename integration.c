@@ -31,7 +31,7 @@ void calculate_position(BarnesHut_node * bhn1 , BarnesHut_node * bhn2)
 
 	for (int i = 0; i < 3; i++)
 	{
-		s1->p[1]->pos[i] = s1->p[1]->pos[i] + s1->p[1]->vel[i] * DELTA_T;
+		bhn2->com_pos[i] = bhn2->com_pos[i] + bhn2->com_vel[i] * DELTA_T;
 	}
 }
 

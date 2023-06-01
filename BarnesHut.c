@@ -34,15 +34,15 @@ void BarnesHut_Tree(OctreeNode * node){
      children */
   else {
     /* The node is an empty non-leaf, so add the custom data to it */
-    node->usr_val = malloc(sizeof(BarnesHut_node));
-    BarnesHut_node *pt = (BarnesHut_node*)(node->usr_val);
+    node->cluster = malloc(sizeof(BarnesHut_node));
+    BarnesHut_node *pt = (BarnesHut_node*)(node->cluster);
     pt->mass = 0;
     pt->com_pos[0] = 0; pt->com_pos[1] = 0; pt->com_pos[2] = 0;
     for (int i = 0; i < 8; i++) {
       if (!node->children[i])
 	continue;
       BarnesHut__treecalc(node->children[i]);
-      BarnesHut_node *child_pt = (BarnesHut_node*)node->children[i]->usr_val;
+      BarnesHut_node *child_pt = (BarnesHut_node*)node->children[i]->cluster;
       float child_mass = child_pt->mass;
       pt->mass += child_mass;
       for(int j = 0 ; j < 3 ; j++){
@@ -66,7 +66,7 @@ void BarnesHut_make(BarnesHut * bh){
 
 void BarnesHut_force(OctreeNode * node , system_node * s , BarnesHut_node bhn , float * fx, float * fy , float *fz){
     if(!node) return;
-    BarnesHut_node node_bhn = *(BarnesHut_node*)(node->part); //this should give all the elements(cluster) not just 1 particle
+    BarnesHut_node node_bhn = *(BarnesHut_node*)(node->cluster); //this should give all the elements(cluster) not just 1 particle
 
     float radius = sqrtf(powf(node_bhn.com_pos[0] - bhn.com_pos[0] , 2) + powf(node_bhn.com_pos[1] - bhn.com_pos[1] , 2) + powf(node_bhn.com_pos[2] - bhn.com_pos[2] , 2));
 

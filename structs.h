@@ -11,7 +11,8 @@ typedef struct Particle
 
 typedef struct OctreeNode
 { /* Octree Node */
-    Particle *part;
+    // Particle *part;
+    void* cluster;
     struct OctreeNode *children[8];
     float position[3];
     float bound_top[3];
@@ -19,12 +20,6 @@ typedef struct OctreeNode
     float bound_mid[3];
     int elements;
 } OctreeNode;
-
-// typedef struct node{     /* Particle Node */
-// 	long double mass;
-// 	float pos[3];
-// 	float vel[3];
-// }particle;
 
 typedef struct system_node
 { /* System Node */

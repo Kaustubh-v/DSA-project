@@ -8,7 +8,7 @@ OctreeNode *Octree_malloc_node(float x1, float y1, float z1,
     {
         return NULL;
     }
-    oct->part = NULL;
+    oct->cluster = NULL;
 
     for (int i = 0; i < 8; i++)
     {
@@ -44,7 +44,7 @@ int insert__Octree_node(OctreeNode *oct, Particle *p, float x, float y, float z)
         oct->position[0] = x;
         oct->position[1] = y;
         oct->position[2] = z;
-        oct->part = p;
+        oct->cluster = p;
     }
     // Else it may happen that there are more leaf nodes, so to handle that
     // we need to call the function again
@@ -54,8 +54,8 @@ int insert__Octree_node(OctreeNode *oct, Particle *p, float x, float y, float z)
         if (oct->elements == 1)
         {
             // Taking the inital node's position to reallocate it to another subnode
-            insert_Octree_node(oct, oct->part, oct->position[0], oct->position[1], oct->position[2]);
-            oct->part = NULL;
+            insert_Octree_node(oct, oct->cluster, oct->position[0], oct->position[1], oct->position[2]);
+            oct->cluster = NULL;
         }
         insert_Octree_node(oct, p, x, y, z);
     }

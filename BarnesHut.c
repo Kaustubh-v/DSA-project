@@ -1,5 +1,4 @@
 #include "structs.c"
-#include "integration.c"
 
 BarnesHut * BarnesHut_malloc(float min_x , float max_x , float min_y , float max_y , float min_z , float max_z){
     BarnesHut * bh = (BarnesHut*)malloc(sizeof(BarnesHut));
@@ -10,6 +9,24 @@ BarnesHut * BarnesHut_malloc(float min_x , float max_x , float min_y , float max
         return NULL;
     }
     return bh;
+}
+
+void BarnesHut__free(OctreeNode * node){
+  if (!node) return;
+  free(node->cluster);
+  BarnesHut__free(node->children[0]);
+  BarnesHut__free(node->children[1]);
+  BarnesHut__free(node->children[2]);
+  BarnesHut__free(node->children[3]);
+  BarnesHut__free(node->children[4]);
+  BarnesHut__free(node->children[5]);
+  BarnesHut__free(node->children[6]);
+  BarnesHut__free(node->children[7]);
+}
+void BarnesHut_free(BarnesHut *bh) {
+  BarnesHut__free(bh->octree_root);
+  destroy_Octree(bh->octree_root);
+  free(bh);
 }
 
 int BarnesHut_add(BarnesHut * bh , float x , float y , float z , long double mass ){
@@ -64,7 +81,7 @@ void BarnesHut_make(BarnesHut * bh){
     BarnesHut_Tree(bh->octree_root);
 }
 
-void BarnesHut_force(OctreeNode * node , system_node * s , BarnesHut_node bhn , float * fx, float * fy , float *fz){
+void BarnesHut_force(OctreeNode * node , system_node * s , BarnesHut_node bhn , long double * fx, long double * fy , long double *fz){
     if(!node) return;
     BarnesHut_node node_bhn = *(BarnesHut_node*)(node->cluster); //this should give all the elements(cluster) not just 1 particle
 
@@ -83,7 +100,7 @@ void BarnesHut_force(OctreeNode * node , system_node * s , BarnesHut_node bhn , 
     }
     else{
         for(int i = 0 ; i < 8 ; i++){
-            float cfx = 0; float cfy = 0 ; float cfz = 0;
+            long double cfx = 0; long double cfy = 0 ; long double cfz = 0;
             if(node->children[i]){
                 BarnesHut_force(node->children[i] , s , bhn , &cfx , &cfy , &cfz);
                 *fx += cfx;
@@ -96,7 +113,7 @@ void BarnesHut_force(OctreeNode * node , system_node * s , BarnesHut_node bhn , 
     return;
 }
 
-void BarnesHut_getNewPos(BarnesHut * bh , system_node * s  , float x , float y , float z , float mass , float * fx , float * fy , float * fz){
+void BarnesHut_getNewPos(BarnesHut * bh , system_node * s  , float x , float y , float z , long double  mass , long double * fx , long double * fy , long double * fz){
     if(!bh) return;
     BarnesHut_node bhn;
     bhn.mass = mass;

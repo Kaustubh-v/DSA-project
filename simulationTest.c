@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 // #include "integration.c"
 #include "createSystem.c"
+#include "BarnesHut.c"
 
 float cube1X = 0.0;
 float cube1Y = 0.0;
@@ -10,6 +11,14 @@ float cube1Z = 0.0;
 float cube2X = 0.0;
 float cube2Y = 0.0;
 float cube2Z = 0.0;
+
+float bound_min_x = -50000000;
+float bound_min_y = -50000000;
+float bound_min_z = -50000000;
+float bound_max_x = 50000000;
+float bound_max_y = 50000000;
+float bound_max_z = 50000000;
+
 
 system_node *s1;
 
@@ -98,16 +107,16 @@ void display()
 void update(int value)
 {
 
+  BarnesHut * bh = BarnesHut_malloc(bound_min_x , bound_max_x , bound_min_y , bound_max_y , bound_min_z , bound_max_z);
+  
+
   // value_update(s1);
-
-  cube1X = s1->p[1]->pos[0];
-  cube1Y = s1->p[1]->pos[1];
-  cube1Z = s1->p[1]->pos[2];
-
+  // cube1X = s1->p[1]->pos[0];
+  // cube1Y = s1->p[1]->pos[1];
+  // cube1Z = s1->p[1]->pos[2];
   // cube2X = s1->p1->pos[0]+=1000;
   // cube2Y = s1->p1->pos[1]+=1000;
   // cube2Z = s1->p1->pos[2]+=1000;
-
   // Increment the cube's x position
   // if(cubeX >= 5 || cubeX <= -5 || cubeY>= 5 || cubeY <= -5 || cubeZ >=5 || cubeZ <= -5 ){
   //	   if(frontback ==1) {

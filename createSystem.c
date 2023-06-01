@@ -1,5 +1,5 @@
 #include <string.h>
-#include "integration.c"
+#include "structs.h"
 
 #define MAX_FIELD_LENGTH 100
 #define MAX_NUM_FIELDS 7

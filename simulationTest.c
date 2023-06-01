@@ -1,5 +1,4 @@
 #include <GL/glut.h>
-#include "BarnesHut.c"
 #include "structs.h"
 
 float cube1X = 0.0;
@@ -46,29 +45,25 @@ system_node *s1;
 //   s1->acc[0] = s1->acc[1] = s1->acc[2] = s1->force[0] = s1->force[1] = s1->force[2] = 0;
 // }
 
-void drawGrid(int size, int step)
-{
-  glLineWidth(1.0); // set line width
-
-  glBegin(GL_LINES);
-  glColor3f(1, 1, 1); // set color
-
-  // draw lines along x-axis
-  for (int i = -size; i <= size; i += step)
-  {
-    glVertex3f(i, -size, 0);
-    glVertex3f(i, size, 0);
-  }
-
-  // draw lines along z-axis
-  for (int i = -size; i <= size; i += step)
-  {
-    glVertex3f(-size, i, 0);
-    glVertex3f(size, i, 0);
-  }
-
-  glEnd();
-}
+// void drawGrid(int size, int step)
+// {
+//   glLineWidth(1.0); // set line width
+//   glBegin(GL_LINES);
+//   glColor3f(1, 1, 1); // set color
+//   // draw lines along x-axis
+//   for (int i = -size; i <= size; i += step)
+//   {
+//     glVertex3f(i, -size, 0);
+//     glVertex3f(i, size, 0);
+//   }
+//   // draw lines along z-axis
+//   for (int i = -size; i <= size; i += step)
+//   {
+//     glVertex3f(-size, i, 0);
+//     glVertex3f(size, i, 0);
+//   }
+//   glEnd();
+// }
 
 void display()
 {
@@ -107,7 +102,7 @@ void display()
 
 void update(int value)
 {
-
+  printf("----updating----\n");
   BarnesHut *bh = BarnesHut_malloc(bound_min_x, bound_max_x, bound_min_y, bound_max_y, bound_min_z, bound_max_z);
 
   for (int i = 0; i < 2; i++)
@@ -124,9 +119,9 @@ void update(int value)
   BarnesHut_free(bh);
 
   // value_update(s1);
-  // cube1X = s1->p[1]->pos[0];
-  // cube1Y = s1->p[1]->pos[1];
-  // cube1Z = s1->p[1]->pos[2];
+  cube1X = s1->p[1]->pos[0];
+  cube1Y = s1->p[1]->pos[1];
+  cube1Z = s1->p[1]->pos[2];
   // cube2X = s1->p1->pos[0]+=1000;
   // cube2Y = s1->p1->pos[1]+=1000;
   // cube2Z = s1->p1->pos[2]+=1000;

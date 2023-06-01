@@ -1,5 +1,5 @@
 #include <math.h>
-#include "createSystem.c"
+#include "structs.h"
 #define DELTA_T 1
 
 long double G = 0.00000000067;

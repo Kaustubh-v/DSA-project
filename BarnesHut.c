@@ -1,7 +1,8 @@
-#include "structs.c"
+#include "structs.h"
 
 BarnesHut *BarnesHut_malloc(float min_x, float max_x, float min_y, float max_y, float min_z, float max_z)
-{
+{   
+    printf("--Barnes hut mallocing---\n");
     BarnesHut *bh = (BarnesHut *)malloc(sizeof(BarnesHut));
     if (!bh)
         return NULL;
@@ -37,22 +38,24 @@ void BarnesHut_free(BarnesHut *bh)
 
 int BarnesHut_add(BarnesHut *BH, float x, float y, float z, long double mass)
 {
+    printf("barneshut add\n");
     BarnesHut_node *temp = (BarnesHut_node *)malloc(sizeof(BarnesHut_node));
     if (!temp)
-        return NULL;
+        return 0;
 
     temp->mass = mass;
     temp->com_pos[0] = x;
     temp->com_pos[1] = y;
     temp->com_pos[2] = z;
 
-    insert__Octree_node(BH->octree_root, temp, x, y, z);
+    insert_Octree_node(BH->octree_root, temp, x, y, z);
 
     return 1;
 }
 
 void BarnesHut_Tree(OctreeNode *node)
 {
+    printf("barnes hut tree\n");
     if (!node)
         return;
     if (node->elements == 1)
@@ -72,7 +75,7 @@ void BarnesHut_Tree(OctreeNode *node)
         {
             if (!node->children[i])
                 continue;
-            BarnesHut__treecalc(node->children[i]);
+            BarnesHut_Tree(node->children[i]);
             BarnesHut_node *child_pt = (BarnesHut_node *)node->children[i]->bhn;
             float child_mass = child_pt->mass;
             pt->mass += child_mass;
@@ -91,13 +94,14 @@ void BarnesHut_Tree(OctreeNode *node)
 }
 
 void BarnesHut_make(BarnesHut *bh)
-{
+{   
     if (!bh) return;
     BarnesHut_Tree(bh->octree_root);
 }
 
 void BarnesHut_force(OctreeNode *node, system_node *s, BarnesHut_node bhn, long double *fx, long double *fy, long double *fz)
 {
+    printf("barnes hut force\n");
     if (!node)
         return;
     BarnesHut_node node_bhn = *(BarnesHut_node *)(node->bhn); // this should give all the elements(cluster) not just 1 particle
@@ -138,6 +142,7 @@ void BarnesHut_force(OctreeNode *node, system_node *s, BarnesHut_node bhn, long 
 
 void BarnesHut_getNewPos(BarnesHut *bh, system_node *s, float x, float y, float z, long double mass, long double *fx, long double *fy, long double *fz)
 {
+    printf("barnes hut new pos\n");
     if (!bh)
         return;
     BarnesHut_node bhn;

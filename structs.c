@@ -1,8 +1,9 @@
-#include "integration.c"
+#include "structs.h"
 
 OctreeNode *Octree_malloc_node(float x1, float y1, float z1,
                                float x2, float y2, float z2)
 {
+    printf("----octree malloced----\n");
     OctreeNode *oct = (OctreeNode *)malloc(sizeof(OctreeNode));
     if (!oct)
     {
@@ -32,7 +33,8 @@ OctreeNode *Octree_malloc_node(float x1, float y1, float z1,
 }
 
 int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, float z)
-{
+{   
+    printf("insert -- octree\n");
     // Case 1: If unsuccessful malloc -
     if (!oct)
     {
@@ -41,9 +43,9 @@ int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, 
     // Case 2: If elements = 0, i.e., Number of leaf nodes of current node are 0 -
     if (!oct->elements)
     {
-        oct->bhn->com_pos[0] = x;
-        oct->bhn->com_pos[1] = y;
-        oct->bhn->com_pos[2] = z;
+        // oct->bhn->com_pos[0] = x;
+        // oct->bhn->com_pos[1] = y;
+        // oct->bhn->com_pos[2] = z;
         oct->bhn = BHN;
     }
     // Else it may happen that there are more leaf nodes, so to handle that
@@ -65,6 +67,7 @@ int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, 
 
 int insert_Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, float z)
 {
+    printf("inserting _ octree\n");
     int flag = 0; /* Cases for insertion */
     float bot_x, bot_y, bot_z;
     float top_x, top_y, top_z;
@@ -115,13 +118,13 @@ void destroy_Octree(OctreeNode *oct)
     {
         return;
     }
-    free_Octree(oct->children[0]);
-    free_Octree(oct->children[1]);
-    free_Octree(oct->children[2]);
-    free_Octree(oct->children[3]);
-    free_Octree(oct->children[4]);
-    free_Octree(oct->children[5]);
-    free_Octree(oct->children[6]);
-    free_Octree(oct->children[7]);
+    free(oct->children[2]);
+    free(oct->children[1]);
+    free(oct->children[0]);
+    free(oct->children[3]);
+    free(oct->children[4]);
+    free(oct->children[5]);
+    free(oct->children[7]);
+    free(oct->children[6]);
     free(oct);
 }

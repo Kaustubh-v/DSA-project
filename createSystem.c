@@ -96,5 +96,6 @@ system_node *createsystem(system_node *s1)
 
     free(rows);
     //printf("mass of p1 = %Lf , mass of p2 = %Lf\n", s1->acc[0], s1->force[0]);
+    printf("----System created-----\n");
     return s1;
 }

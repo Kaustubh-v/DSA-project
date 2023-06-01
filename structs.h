@@ -29,10 +29,20 @@ typedef struct OctreeNode
 typedef struct system_node
 { /* System Node */
     Particle *p[2];
-    long double acc_x[2];
-    long double acc_y[2];
-    long double acc_z[2];
-    long double force_x[2];
-    long double force_y[2];
-    long double force_z[2];
+    // long double acc_x[2];
+    // long double acc_y[2];
+    // long double acc_z[2];
+    // long double force_x[2];
+    // long double force_y[2];
+    // long double force_z[2];
 } system_node;
+
+typedef struct BarnesHut_node{
+    long double mass;
+    float com_pos[3];
+    long double com_vel[3];
+}BarnesHut_node;
+
+typedef struct BarnesHut{
+    OctreeNode * octree_root;
+}BarnesHut;

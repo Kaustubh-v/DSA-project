@@ -98,7 +98,7 @@ void display()
 void update(int value)
 {
 
-  value_update(s1);
+  // value_update(s1);
 
   cube1X = s1->p[1]->pos[0];
   cube1Y = s1->p[1]->pos[1];

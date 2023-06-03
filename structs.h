@@ -48,7 +48,7 @@ system_node *createsystem(system_node *s1);
 BarnesHut *BarnesHut_malloc(float min_x, float max_x, float min_y, float max_y, float min_z, float max_z);
 void BarnesHut__free(OctreeNode *node);
 void BarnesHut_free(BarnesHut *bh);
-int BarnesHut_add(BarnesHut *BH, float x, float y, float z, long double mass) ;
+int BarnesHut_add(BarnesHut *BH, float x, float y, float z, long double mass , long double velx ,long double vely ,long double velz) ;
 void BarnesHut_Tree(OctreeNode *node);
 void BarnesHut_make(BarnesHut *bh);
 void BarnesHut_force(OctreeNode *node, system_node *s, BarnesHut_node bhn, long double *fx, long double *fy, long double *fz);
@@ -59,5 +59,5 @@ int insert_Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, f
 void destroy_Octree(OctreeNode *oct);
 void update(int value);
 void display();
-long double *value_update(BarnesHut_node *bhn1, BarnesHut_node *bhn2);
-void calculate_acc_velocity(BarnesHut_node *bhn2, long double force[]);
+long double *value_update(BarnesHut_node *bhn1, BarnesHut_node *bhn2 , long double * fx , long double * fy , long double * fz);
+void calculate_acc_velocity(BarnesHut_node *bhn2, long double *force[]);

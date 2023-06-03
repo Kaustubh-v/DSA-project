@@ -16,9 +16,9 @@ float bound_max_x = 50000000;
 float bound_max_y = 50000000;
 float bound_max_z = 50000000;
 
-long double force_x[2];
-long double force_y[2];
-long double force_z[2];
+long double force_x[2] = { 0 ,0};
+long double force_y[2] = {0,0};
+long double force_z[2] = {0,0};
 
 system_node *s1;
 
@@ -107,10 +107,12 @@ void update(int value)
 
   for (int i = 0; i < 2; i++)
   {
-    BarnesHut_add(bh, s1->p[i]->pos[0], s1->p[i]->pos[1], s1->p[i]->pos[2], s1->p[i]->mass);
+    printf("---calling barnes hut AND---\n");
+    BarnesHut_add(bh, s1->p[i]->pos[0], s1->p[i]->pos[1], s1->p[i]->pos[2], s1->p[i]->mass , s1->p[i]->vel[0] , s1->p[i]->vel[1] ,s1->p[i]->vel[2] );
   }
 
   BarnesHut_make(bh);
+
 
   for (int i = 0; i < 2; i++)
   {
@@ -122,9 +124,10 @@ void update(int value)
   cube1X = s1->p[1]->pos[0];
   cube1Y = s1->p[1]->pos[1];
   cube1Z = s1->p[1]->pos[2];
-  // cube2X = s1->p1->pos[0]+=1000;
-  // cube2Y = s1->p1->pos[1]+=1000;
-  // cube2Z = s1->p1->pos[2]+=1000;
+
+  cube2X = s1->p[0]->pos[0];
+  cube2Y = s1->p[0]->pos[1];
+  cube2Z = s1->p[0]->pos[2];
   // Increment the cube's x position
   // if(cubeX >= 5 || cubeX <= -5 || cubeY>= 5 || cubeY <= -5 || cubeZ >=5 || cubeZ <= -5 ){
   //	   if(frontback ==1) {

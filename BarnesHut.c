@@ -36,7 +36,7 @@ void BarnesHut_free(BarnesHut *bh)
     free(bh);
 }
 
-int BarnesHut_add(BarnesHut *BH, float x, float y, float z, long double mass)
+int BarnesHut_add(BarnesHut *BH, float x, float y, float z, long double mass , long double velx ,long double vely ,long double velz )
 {
     printf("barneshut add\n");
     BarnesHut_node *temp = (BarnesHut_node *)malloc(sizeof(BarnesHut_node));
@@ -47,6 +47,9 @@ int BarnesHut_add(BarnesHut *BH, float x, float y, float z, long double mass)
     temp->com_pos[0] = x;
     temp->com_pos[1] = y;
     temp->com_pos[2] = z;
+    temp->com_vel[0] = velx;
+    temp->com_vel[1] = vely;
+    temp->com_vel[2] = velz;
 
     insert_Octree_node(BH->octree_root, temp, x, y, z);
 
@@ -58,8 +61,8 @@ void BarnesHut_Tree(OctreeNode *node)
     printf("barnes hut tree\n");
     if (!node)
         return;
-    if (node->elements == 1)
-        return;
+    if (node->elements == 1){
+        return;}
     /* The mass and COM can be determined from the mass and COM of the node's
        children */
     else
@@ -75,6 +78,8 @@ void BarnesHut_Tree(OctreeNode *node)
         {
             if (!node->children[i])
                 continue;
+            else{ 
+                printf("////child exists///////\n");
             BarnesHut_Tree(node->children[i]);
             BarnesHut_node *child_pt = (BarnesHut_node *)node->children[i]->bhn;
             float child_mass = child_pt->mass;
@@ -84,6 +89,7 @@ void BarnesHut_Tree(OctreeNode *node)
                 pt->com_pos[j] += child_mass * (child_pt->com_pos[j]);
                 pt->com_vel[j] += child_mass * (child_pt->com_vel[j]);
             }
+            }
         }
         for (int k = 0; k < 3; k++)
         {
@@ -91,6 +97,7 @@ void BarnesHut_Tree(OctreeNode *node)
             pt->com_vel[k] /= pt->mass;
         }
     }
+    printf("body com = %f , %f , %f\n" , node->bhn->com_pos[0] ,node->bhn->com_pos[1] ,node->bhn->com_pos[2] );
 }
 
 void BarnesHut_make(BarnesHut *bh)
@@ -113,13 +120,13 @@ void BarnesHut_force(OctreeNode *node, system_node *s, BarnesHut_node bhn, long 
 
     float width = ((node->bound_top[0] - node->bound_bottom[0]) + (node->bound_top[1] - node->bound_bottom[1]) + (node->bound_top[2] - node->bound_bottom[2])) / 3;
     printf("width = %f\n" ,width );
-    if (width / radius < 0.5)
+    if (width / radius < 0.6)
     {
         // call update function of integration here , no need to keep the updated force
-        long double *force_arr = value_update(&node_bhn, &bhn);
-        *fx = force_arr[0];
-        *fy = force_arr[1];
-        *fz = force_arr[2];
+        value_update(&node_bhn, &bhn , fx , fy , fz);
+        // *fx = *force_arr;
+        // *fy = force_arr[1];
+        // *fz = force_arr[2];
     }
     else
     {
@@ -151,7 +158,7 @@ void BarnesHut_getNewPos(BarnesHut *bh, system_node *s, float x, float y, float 
     bhn.com_pos[1] = y;
     bhn.com_pos[2] = z;
     BarnesHut_force(bh->octree_root, s, bhn, fx, fy, fz);
-    long double force_arr[3] = {*fx, *fy, *fx};
+    long double *force_arr[3] = {fx, fy, fx};
     printf("force = %Lf , %Lf , %Lf\n" , *fx , *fy , * fz);
     calculate_acc_velocity(&bhn, force_arr);
 

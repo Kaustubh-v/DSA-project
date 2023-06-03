@@ -54,7 +54,7 @@ void BarnesHut_make(BarnesHut *bh);
 void BarnesHut_force(OctreeNode *node, system_node *s, BarnesHut_node bhn, long double *fx, long double *fy, long double *fz);
 void BarnesHut_getNewPos(BarnesHut *bh, system_node *s, float x, float y, float z, long double mass, long double *fx, long double *fy, long double *fz , int i);
 OctreeNode *Octree_malloc_node(float x1, float y1, float z1, float x2, float y2, float z2);
-int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, float z);
+int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN);
 int insert_Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, float z);
 void destroy_Octree(OctreeNode *oct);
 void update(int value);

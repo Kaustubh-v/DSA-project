@@ -32,7 +32,7 @@ OctreeNode *Octree_malloc_node(float x1, float y1, float z1,
     return oct;
 }
 
-int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, float z)
+int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN)
 {   
     printf("insert -- octree\n");
     // Case 1: If unsuccessful malloc -
@@ -43,6 +43,7 @@ int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, 
     // Case 2: If elements = 0, i.e., Number of leaf nodes of current node are 0 -
     if (!oct->elements)
     {
+        printf("inserts via CASE 2\n");
         // oct->bhn->com_pos[0] = x;
         // oct->bhn->com_pos[1] = y;
         // oct->bhn->com_pos[2] = z;
@@ -55,13 +56,17 @@ int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, 
         // Case A: There is one leaf node -
         if (oct->elements == 1)
         {
+            printf("goes to CASE A\n");
             // Taking the inital node's position to reallocate it to another subnode
             insert_Octree_node(oct, oct->bhn, oct->bhn->com_pos[0], oct->bhn->com_pos[1], oct->bhn->com_pos[2]);
             oct->bhn = BHN;
         }
-        insert_Octree_node(oct, BHN, x, y, z);
+        insert_Octree_node(oct, BHN, BHN->com_pos[0], BHN->com_pos[1], BHN->com_pos[2]);
+        printf("%f\t%f\t%f\n",oct->bound_top[0],oct->bound_top[1],oct->bound_top[2]);
+        printf("%f\t%f\t%f\n",oct->bound_bottom[0],oct->bound_bottom[1],oct->bound_bottom[2]);
     }
     (oct->elements)++;
+    printf("%Lf\tinserted\n",BHN->mass);
     return (oct->elements);
 }
 
@@ -109,7 +114,8 @@ int insert_Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, f
         oct->children[flag] = Octree_malloc_node(bot_x, bot_y, bot_z, top_x, top_y, top_z);
     }
     // Verifies successful malloc as well
-    return insert__Octree_node(oct->children[flag], BHN, BHN->com_pos[0], BHN->com_pos[1], BHN->com_pos[2]);
+    printf("FLAG IS: %d\n",flag);
+    return insert__Octree_node(oct->children[flag], BHN);
 }
 
 void destroy_Octree(OctreeNode *oct)

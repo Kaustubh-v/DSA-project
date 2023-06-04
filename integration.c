@@ -27,8 +27,9 @@ void calculate_acc_velocity(BarnesHut_node *bhn2, long double * force[])
 	return;
 }
 
-void calculate_position(BarnesHut_node *bhn1, BarnesHut_node *bhn2)
-{
+void calculate_position( BarnesHut_node *bhn2)
+{	
+	printf("the vel of bhn2 = %Lf , and the position = %f\n" , bhn2->com_vel[0] , bhn2->com_pos[0]);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -82,8 +83,10 @@ long double *value_update(BarnesHut_node *bhn1, BarnesHut_node *bhn2 , long doub
 	force[1] = fy;
 	force[2] = fz;
 
+	printf("printing all the info of bhn1 : %Lf , %f , %f, %f , %Lf , %Lf , %Lf\n", bhn1->mass , bhn1->com_pos[0], bhn1->com_pos[1], bhn1->com_pos[2], bhn1->com_vel[0], bhn1->com_vel[1],bhn1->com_vel[2]);
+	printf("printing all the info of bhn2 : %Lf , %f , %f, %f , %Lf , %Lf , %Lf\n", bhn2->mass , bhn2->com_pos[0], bhn2->com_pos[1], bhn2->com_pos[2], bhn2->com_vel[0], bhn2->com_vel[1],bhn2->com_vel[2]);
 	calculate_acc_velocity(bhn2, force);
-	calculate_position(bhn1, bhn2);
+	calculate_position( bhn2);
 	calculate_force(bhn1, bhn2 , force);
 	printf("force in integration : %Lf , %Lf , %Lf\n", *force[0] , *force[1] , *force[2]);
 	// calculate_acc_velocity(bhn1 , bhn2);

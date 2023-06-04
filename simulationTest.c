@@ -9,12 +9,12 @@ float cube2X = 0.0;
 float cube2Y = 0.0;
 float cube2Z = 0.0;
 
-float bound_min_x = -50000000;
-float bound_min_y = -50000000;
-float bound_min_z = -50000000;
-float bound_max_x = 50000000;
-float bound_max_y = 50000000;
-float bound_max_z = 50000000;
+float bound_min_x = -5000000;
+float bound_min_y = -5000000;
+float bound_min_z = -5000000;
+float bound_max_x = 5000000;
+float bound_max_y = 5000000;
+float bound_max_z = 5000000;
 
 long double force_x[2] = { 0 ,0};
 long double force_y[2] = {0,0};
@@ -116,9 +116,12 @@ void update(int value)
 
   for (int i = 0; i < 2; i++)
   {
-    BarnesHut_getNewPos(bh, s1, s1->p[i]->pos[0], s1->p[i]->pos[1], s1->p[i]->pos[2], s1->p[i]->mass, &force_x[i], &force_y[i], &force_z[i] , i);
+    BarnesHut_getNewPos(bh, s1, s1->p[i]->pos[0], s1->p[i]->pos[1], s1->p[i]->pos[2], s1->p[i]->vel[0], s1->p[i]->vel[1], s1->p[i]->vel[2],s1->p[i]->mass, &force_x[i], &force_y[i], &force_z[i] , i);
   }
   BarnesHut_free(bh);
+
+  printf("updated positions = %f, %f , %f\n" , s1->p[1]->pos[0] , s1->p[1]->pos[1], s1->p[1]->pos[2]);
+  printf("updated positions = %f, %f , %f\n" , s1->p[0]->pos[0] , s1->p[0]->pos[1], s1->p[0]->pos[2]);
 
   // value_update(s1);
   cube1X = s1->p[1]->pos[0];

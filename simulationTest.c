@@ -8,17 +8,20 @@ float cube1Z = 0.0;
 float cube2X = 0.0;
 float cube2Y = 0.0;
 float cube2Z = 0.0;
+float cube3X = 0.0;
+float cube3Y = 0.0;
+float cube3Z = 0.0;
 
-float bound_min_x = -5000000;
-float bound_min_y = -5000000;
-float bound_min_z = -5000000;
-float bound_max_x = 5000000;
-float bound_max_y = 5000000;
-float bound_max_z = 5000000;
+float bound_min_x = -500000;
+float bound_min_y = -500000;
+float bound_min_z = -500000;
+float bound_max_x = 500000;
+float bound_max_y = 500000;
+float bound_max_z = 500000;
 
-long double force_x[2] = { 0 ,0};
-long double force_y[2] = {0,0};
-long double force_z[2] = {0,0};
+long double force_x[PRTCNT] = { 0 ,0, 0};
+long double force_y[PRTCNT] = {0,0 , 0};
+long double force_z[PRTCNT] = {0,0, 0 };
 
 system_node *s1;
 
@@ -97,6 +100,12 @@ void display()
   glutSolidCube(50000);
   glPopMatrix();
 
+  glPushMatrix();
+  glTranslatef(cube3X + 10, cube3Y + 10, cube3Z + 10);
+  glutSolidCube(50000);
+  glPopMatrix();
+
+
   glutSwapBuffers();
 }
 
@@ -105,7 +114,7 @@ void update(int value)
   printf("----updating----\n");
   BarnesHut *bh = BarnesHut_malloc(bound_min_x, bound_max_x, bound_min_y, bound_max_y, bound_min_z, bound_max_z);
 
-  for (int i = 0; i < 2; i++)
+  for (int i = 0; i < PRTCNT; i++)
   {
     printf("---calling barnes hut AND---\n");
     BarnesHut_add(bh, s1->p[i]->pos[0], s1->p[i]->pos[1], s1->p[i]->pos[2], s1->p[i]->mass , s1->p[i]->vel[0] , s1->p[i]->vel[1] ,s1->p[i]->vel[2] );
@@ -114,7 +123,7 @@ void update(int value)
   BarnesHut_make(bh);
 
 
-  for (int i = 0; i < 2; i++)
+  for (int i = 0; i < PRTCNT; i++)
   {
     BarnesHut_getNewPos(bh, s1, s1->p[i]->pos[0], s1->p[i]->pos[1], s1->p[i]->pos[2], s1->p[i]->vel[0], s1->p[i]->vel[1], s1->p[i]->vel[2],s1->p[i]->mass, &force_x[i], &force_y[i], &force_z[i] , i);
   }
@@ -131,6 +140,10 @@ void update(int value)
   cube2X = s1->p[0]->pos[0];
   cube2Y = s1->p[0]->pos[1];
   cube2Z = s1->p[0]->pos[2];
+  
+  cube3X = s1->p[2]->pos[0];
+  cube3Y = s1->p[2]->pos[1];
+  cube3Z = s1->p[2]->pos[2];
   // Increment the cube's x position
   // if(cubeX >= 5 || cubeX <= -5 || cubeY>= 5 || cubeY <= -5 || cubeZ >=5 || cubeZ <= -5 ){
   //	   if(frontback ==1) {

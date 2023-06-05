@@ -3,6 +3,8 @@
 #include <limits.h>
 #include <math.h>
 
+#define PRTCNT 3
+
 typedef struct Particle
 { /* Particle Node */
     long double mass;
@@ -29,7 +31,7 @@ typedef struct OctreeNode
 
 typedef struct system_node
 { /* System Node */
-    Particle *p[2];
+    Particle *p[3];
     // long double acc_x[2];
     // long double acc_y[2];
     // long double acc_z[2];
@@ -51,7 +53,7 @@ void BarnesHut_free(BarnesHut *bh);
 int BarnesHut_add(BarnesHut *BH, float x, float y, float z, long double mass , long double velx ,long double vely ,long double velz) ;
 void BarnesHut_Tree(OctreeNode *node);
 void BarnesHut_make(BarnesHut *bh);
-void BarnesHut_force(OctreeNode *node, system_node *s, BarnesHut_node bhn, long double *fx, long double *fy, long double *fz);
+void BarnesHut_force(OctreeNode *node, system_node *s, BarnesHut_node *bhn, long double *fx, long double *fy, long double *fz);
 void BarnesHut_getNewPos(BarnesHut *bh, system_node *s, float x, float y, float z,long double velx,long double vely,long double velz, long double mass, long double *fx, long double *fy, long double *fz , int i);
 OctreeNode *Octree_malloc_node(float x1, float y1, float z1, float x2, float y2, float z2);
 int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, float z);

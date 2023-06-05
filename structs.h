@@ -3,7 +3,7 @@
 #include <limits.h>
 #include <math.h>
 
-#define PRTCNT 3
+#define PRTCNT 2
 
 typedef struct Particle
 { /* Particle Node */
@@ -31,7 +31,7 @@ typedef struct OctreeNode
 
 typedef struct system_node
 { /* System Node */
-    Particle *p[3];
+    Particle *p[PRTCNT];
     // long double acc_x[2];
     // long double acc_y[2];
     // long double acc_z[2];

@@ -8,9 +8,33 @@ float cube1Z = 0.0;
 float cube2X = 0.0;
 float cube2Y = 0.0;
 float cube2Z = 0.0;
-float cube3X = 0.0;
-float cube3Y = 0.0;
-float cube3Z = 0.0;
+// float cube3X = 0.0;
+// float cube3Y = 0.0;
+// float cube3Z = 0.0;
+// float cube4X = 0.0;
+// float cube4Y = 0.0;
+// float cube4Z = 0.0;
+// float cube5X = 0.0;
+// float cube5Y = 0.0;
+// float cube5Z = 0.0;
+// float cube6X = 0.0;
+// float cube6Y = 0.0;
+// float cube6Z = 0.0;
+// float cube7X = 0.0;
+// float cube7Y = 0.0;
+// float cube7Z = 0.0;
+// float cube8X = 0.0;
+// float cube8Y = 0.0;
+// float cube8Z = 0.0;
+// float cube9X = 0.0;
+// float cube9Y = 0.0;
+// float cube9Z = 0.0;
+// float cube10X = 0.0;
+// float cube10Y = 0.0;
+// float cube10Z = 0.0;
+// float cube3X = 0.0;
+// float cube3Y = 0.0;
+// float cube3Z = 0.0;
 
 float bound_min_x = -500000;
 float bound_min_y = -500000;
@@ -19,9 +43,9 @@ float bound_max_x = 500000;
 float bound_max_y = 500000;
 float bound_max_z = 500000;
 
-long double force_x[PRTCNT] = { 0 ,0, 0};
-long double force_y[PRTCNT] = {0,0 , 0};
-long double force_z[PRTCNT] = {0,0, 0 };
+long double force_x[PRTCNT] ;
+long double force_y[PRTCNT] ;
+long double force_z[PRTCNT] ;
 
 system_node *s1;
 
@@ -99,11 +123,43 @@ void display()
   glTranslatef(cube2X, cube2Y, cube2Z);
   glutSolidCube(50000);
   glPopMatrix();
+  // glPushMatrix();
+  // glTranslatef(cube3X, cube3Y, cube3Z);
+  // glutSolidCube(50000);
+  // glPopMatrix();
+  // glPushMatrix();
+  // glTranslatef(cube4X, cube4Y, cube4Z);
+  // glutSolidCube(50000);
+  // glPopMatrix();
+  // glPushMatrix();
+  // glTranslatef(cube5X, cube5Y, cube5Z);
+  // glutSolidCube(50000);
+  // glPopMatrix();
+  // glPushMatrix();
+  // glTranslatef(cube6X, cube6Y, cube6Z);
+  // glutSolidCube(50000);
+  // glPopMatrix();
+  // glPushMatrix();
+  // glTranslatef(cube7X, cube7Y, cube7Z);
+  // glutSolidCube(50000);
+  // glPopMatrix();
+  // glPushMatrix();
+  // glTranslatef(cube8X, cube8Y, cube8Z);
+  // glutSolidCube(50000);
+  // glPopMatrix();
+  // glPushMatrix();
+  // glTranslatef(cube9X, cube9Y, cube9Z);
+  // glutSolidCube(50000);
+  // glPopMatrix();
+  // glPushMatrix();
+  // glTranslatef(cube10X, cube10Y, cube10Z);
+  // glutSolidCube(50000);
+  // glPopMatrix();
 
-  glPushMatrix();
-  glTranslatef(cube3X + 10, cube3Y + 10, cube3Z + 10);
-  glutSolidCube(50000);
-  glPopMatrix();
+  // glPushMatrix();
+  // glTranslatef(cube3X + 10, cube3Y + 10, cube3Z + 10);
+  // glutSolidCube(50000);
+  // glPopMatrix();
 
 
   glutSwapBuffers();
@@ -140,10 +196,34 @@ void update(int value)
   cube2X = s1->p[0]->pos[0];
   cube2Y = s1->p[0]->pos[1];
   cube2Z = s1->p[0]->pos[2];
+  // cube3X = s1->p[2]->pos[0];
+  // cube3Y = s1->p[2]->pos[1];
+  // cube3Z = s1->p[2]->pos[2];
+  // cube4X = s1->p[3]->pos[0];
+  // cube4Y = s1->p[3]->pos[1];
+  // cube4Z = s1->p[3]->pos[2];
+  // cube5X = s1->p[4]->pos[0];
+  // cube5Y = s1->p[4]->pos[1];
+  // cube5Z = s1->p[4]->pos[2];
+  // cube6X = s1->p[5]->pos[0];
+  // cube6Y = s1->p[5]->pos[1];
+  // cube6Z = s1->p[5]->pos[2];
+  // cube7X = s1->p[6]->pos[0];
+  // cube7Y = s1->p[6]->pos[1];
+  // cube7Z = s1->p[6]->pos[2];
+  // cube8X = s1->p[7]->pos[0];
+  // cube8Y = s1->p[7]->pos[1];
+  // cube8Z = s1->p[7]->pos[2];
+  // cube9X = s1->p[8]->pos[0];
+  // cube9Y = s1->p[8]->pos[1];
+  // cube9Z = s1->p[8]->pos[2];
+  // cube10X = s1->p[9]->pos[0];
+  // cube10Y = s1->p[9]->pos[1];
+  // cube10Z = s1->p[9]->pos[2];
   
-  cube3X = s1->p[2]->pos[0];
-  cube3Y = s1->p[2]->pos[1];
-  cube3Z = s1->p[2]->pos[2];
+  // cube3X = s1->p[2]->pos[0];
+  // cube3Y = s1->p[2]->pos[1];
+  // cube3Z = s1->p[2]->pos[2];
   // Increment the cube's x position
   // if(cubeX >= 5 || cubeX <= -5 || cubeY>= 5 || cubeY <= -5 || cubeZ >=5 || cubeZ <= -5 ){
   //	   if(frontback ==1) {

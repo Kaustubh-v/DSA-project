@@ -175,6 +175,7 @@ void BarnesHut_getNewPos(BarnesHut *bh, system_node *s, float x, float y, float 
     for (int j = 0; j < 3; j++)
     {
         s->p[i]->pos[j] = bhn.com_pos[j];
+        s->p[i]->vel[j] = bhn.com_vel[j];
     }
     
 

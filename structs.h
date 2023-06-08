@@ -3,7 +3,7 @@
 #include <limits.h>
 #include <math.h>
 
-#define PRTCNT 2
+#define PRTCNT 3
 
 typedef struct Particle
 { /* Particle Node */
@@ -11,6 +11,7 @@ typedef struct Particle
     long double vel[3];
     float pos[3];
 } Particle;
+
 typedef struct BarnesHut_node
 {
     long double mass;
@@ -45,6 +46,13 @@ typedef struct BarnesHut
     OctreeNode *octree_root;
 } BarnesHut;
 
+typedef struct position{
+  float posx;
+  float posy;
+  float posz;
+}positions;
+// positions *par[PRTCNT];
+
 
 system_node *createsystem(system_node *s1);
 BarnesHut *BarnesHut_malloc(float min_x, float max_x, float min_y, float max_y, float min_z, float max_z);
@@ -63,3 +71,4 @@ void update(int value);
 void display();
 long double *value_update(BarnesHut_node *bhn1, BarnesHut_node *bhn2 , long double * fx , long double * fy , long double * fz);
 void calculate_acc_velocity(BarnesHut_node *bhn2, long double *force[]);
+// void initParticles();

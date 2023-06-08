@@ -1,7 +1,6 @@
 #include "structs.h"
 
-OctreeNode *Octree_malloc_node(float x1, float y1, float z1,
-                               float x2, float y2, float z2)
+OctreeNode *Octree_malloc_node(float x1, float y1, float z1,float x2, float y2, float z2)
 {
     printf("----octree malloced----\n");
     OctreeNode *oct = (OctreeNode *)malloc(sizeof(OctreeNode));
@@ -57,7 +56,7 @@ int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, 
         {
             // Taking the inital node's position to reallocate it to another subnode
             insert_Octree_node(oct, oct->bhn, oct->bhn->com_pos[0], oct->bhn->com_pos[1], oct->bhn->com_pos[2]);
-            oct->bhn = BHN;
+            // oct->bhn = BHN;
         }
         insert_Octree_node(oct, BHN, x, y, z);
     }
@@ -106,6 +105,7 @@ int insert_Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, f
     }
     if (!oct->children[flag])
     {
+        //allocating space to new node
         oct->children[flag] = Octree_malloc_node(bot_x, bot_y, bot_z, top_x, top_y, top_z);
     }
     // Verifies successful malloc as well

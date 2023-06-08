@@ -2,7 +2,7 @@
 
 BarnesHut *BarnesHut_malloc(float min_x, float max_x, float min_y, float max_y, float min_z, float max_z)
 {   
-    printf("--Barnes hut mallocing---\n");
+    printf("---Barnes hut mallocing---\n");
     BarnesHut *bh = (BarnesHut *)malloc(sizeof(BarnesHut));
     if (!bh)
         return NULL;

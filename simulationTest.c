@@ -2,54 +2,12 @@
 #include "structs.h"
 
 
-// void initParticles(){
-// for (int i = 0; i < PRTCNT; i++)
-// //   {
-// //     par[i] = malloc(sizeof(positions));
-// //     par[i]->posx = par[i]->posy = par[i]->posz = 0.0;
-// //   }
-// // }
-
-// float cube1X = 0.0
-// float cube1Y = 0.0;
-// float cube1Z = 0.0;
-// float cube2X = 0.0;
-// float cube2Y = 0.0;
-// float cube2Z = 0.0;
-// float cube3X = 0.0;
-// float cube3Y = 0.0;
-// float cube3Z = 0.0;
-// float cube4X = 0.0;
-// float cube4Y = 0.0;
-// float cube4Z = 0.0;
-// float cube5X = 0.0;
-// float cube5Y = 0.0;
-// float cube5Z = 0.0;
-// float cube6X = 0.0;
-// float cube6Y = 0.0;
-// float cube6Z = 0.0;
-// float cube7X = 0.0;
-// float cube7Y = 0.0;
-// float cube7Z = 0.0;
-// float cube8X = 0.0;
-// float cube8Y = 0.0;
-// float cube8Z = 0.0;
-// float cube9X = 0.0;
-// float cube9Y = 0.0;
-// float cube9Z = 0.0;
-// float cube10X = 0.0;
-// float cube10Y = 0.0;
-// float cube10Z = 0.0;
-// float cube3X = 0.0;
-// float cube3Y = 0.0;
-// float cube3Z = 0.0;
-
-float bound_min_x = -900000;
-float bound_min_y = -900000;
-float bound_min_z = -900000;
-float bound_max_x = 900000;
-float bound_max_y = 900000;
-float bound_max_z = 900000;
+long double bound_min_x = -100000000;
+long double bound_min_y = -100000000;
+long double bound_min_z = 100000000;
+long double bound_max_x = 100000000;
+long double bound_max_y = 100000000;
+long double bound_max_z = 100000000;
 
 long double force_x[PRTCNT] ;
 long double force_y[PRTCNT] ;
@@ -57,27 +15,7 @@ long double force_z[PRTCNT] ;
 
 system_node *s1;
 
-// Particle * createParticle(long double mass , float posx , float posy , float posz , float velx , float vely , float velz){
-//   Particle * p1 = (Particle *)malloc(sizeof(Particle));
-//   p1->mass = mass;
-//   p1->pos[0] = posx;
-//   p1->pos[1] = posy;
-//   p1->pos[3] = posz;
-//   p1->vel[0] = velx;
-//   p1->vel[1] = vely;
-//   p1->vel[2] = velz;
-//   return p1;
-// }
-// void createSystem(){
-//   s1 = (system_node *)malloc(sizeof(system_node));
-//   long double mass1 = 6 * pow(10 , 24);
-//   Particle * p1 = createParticle(mass1 ,0,0,0,0,0,0);
-//   long double mass2 = 7.4 * pow(10 , 22);
-//   Particle * p2 = createParticle(mass2 , 3840000 , 0 ,0 , -10500, 20020 , 20000);
-//   s1->p1 = p1;
-//   s1->p2 = p2;
-//   s1->acc[0] = s1->acc[1] = s1->acc[2] = s1->force[0] = s1->force[1] = s1->force[2] = 0;
-// }
+
 // void drawGrid(int size, int step)
 // {
 //   glLineWidth(1.0); // set line width
@@ -105,7 +43,7 @@ void display()
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluPerspective(100, 0.5, 0.1, 100000000);
-  gluLookAt(0, 0, 4884000.0, 0, 0, 0, 1.0, 1.0, 1.0);
+  gluLookAt(0, 0, 4884000.0, 0, 0, 0, 1.0, 0, 0);
 
   // draw objects
   // drawGrid(10000000, 800000);
@@ -129,51 +67,6 @@ void display()
     glPopMatrix();
 
   }
-
-  // glPushMatrix();
-  // glTranslatef(cube1X + 10, cube1Y + 10, cube1Z + 10);
-  // glutSolidCube(50000);
-  // glPopMatrix();
-  // glPushMatrix();
-  // glTranslatef(cube2X, cube2Y, cube2Z);
-  // glutSolidCube(50000);
-  // glPopMatrix();
-  // glPushMatrix();
-  // glTranslatef(cube3X, cube3Y, cube3Z);
-  // glutSolidCube(50000);
-  // glPopMatrix();
-  // glPushMatrix();
-  // glTranslatef(cube4X, cube4Y, cube4Z);
-  // glutSolidCube(50000);
-  // glPopMatrix();
-  // glPushMatrix();
-  // glTranslatef(cube5X, cube5Y, cube5Z);
-  // glutSolidCube(50000);
-  // glPopMatrix();
-  // glPushMatrix();
-  // glTranslatef(cube6X, cube6Y, cube6Z);
-  // glutSolidCube(50000);
-  // glPopMatrix();
-  // glPushMatrix();
-  // glTranslatef(cube7X, cube7Y, cube7Z);
-  // glutSolidCube(50000);
-  // glPopMatrix();
-  // glPushMatrix();
-  // glTranslatef(cube8X, cube8Y, cube8Z);
-  // glutSolidCube(50000);
-  // glPopMatrix();
-  // glPushMatrix();
-  // glTranslatef(cube9X, cube9Y, cube9Z);
-  // glutSolidCube(50000);
-  // glPopMatrix();
-  // glPushMatrix();
-  // glTranslatef(cube10X, cube10Y, cube10Z);
-  // glutSolidCube(50000);
-  // glPopMatrix();
-  // glPushMatrix();
-  // glTranslatef(cube3X + 10, cube3Y + 10, cube3Z + 10);
-  // glutSolidCube(50000);
-  // glPopMatrix();
 
   glutSwapBuffers();
 }
@@ -201,73 +94,9 @@ void update(int value)
 
   for (int i = 0; i < PRTCNT; i++)
   {
-    printf("updated position : %f, %f, %f\n",s1->p[i]->pos[0] , s1->p[i]->pos[1] , s1->p[i]->pos[2]);
+    printf("updated position : %Lf, %Lf, %Lf\n",s1->p[i]->pos[0] , s1->p[i]->pos[1] , s1->p[i]->pos[2]);
   }
 
-  // value_update(s1);
-  // for (int i = 0; i < PRTCNT; i++)
-  // {
-  //   par[i]->posx = s1->p[i]->pos[0];
-  //   par[i]->posy = s1->p[i]->pos[1];
-  //   par[i]->posz = s1->p[i]->pos[2];
-  // }
-  // cube1X = s1->p[1]->pos[0];
-  // cube1Y = s1->p[1]->pos[1];
-  // cube1Z = s1->p[1]->pos[2];
-  // cube2X = s1->p[0]->pos[0];
-  // cube2Y = s1->p[0]->pos[1];
-  // cube2Z = s1->p[0]->pos[2];
-  // cube3X = s1->p[2]->pos[0];
-  // cube3Y = s1->p[2]->pos[1];
-  // cube3Z = s1->p[2]->pos[2];
-  // cube4X = s1->p[3]->pos[0];
-  // cube4Y = s1->p[3]->pos[1];
-  // cube4Z = s1->p[3]->pos[2];
-  // cube5X = s1->p[4]->pos[0];
-  // cube5Y = s1->p[4]->pos[1];
-  // cube5Z = s1->p[4]->pos[2];
-  // cube6X = s1->p[5]->pos[0];
-  // cube6Y = s1->p[5]->pos[1];
-  // cube6Z = s1->p[5]->pos[2];
-  // cube7X = s1->p[6]->pos[0];
-  // cube7Y = s1->p[6]->pos[1];
-  // cube7Z = s1->p[6]->pos[2];
-  // cube8X = s1->p[7]->pos[0];
-  // cube8Y = s1->p[7]->pos[1];
-  // cube8Z = s1->p[7]->pos[2];
-  // cube9X = s1->p[8]->pos[0];
-  // cube9Y = s1->p[8]->pos[1];
-  // cube9Z = s1->p[8]->pos[2];
-  // cube10X = s1->p[9]->pos[0];
-  // cube10Y = s1->p[9]->pos[1];
-  // cube10Z = s1->p[9]->pos[2];
-  // cube3X = s1->p[2]->pos[0];
-  // cube3Y = s1->p[2]->pos[1];
-  // cube3Z = s1->p[2]->pos[2];
-  // Increment the cube's x position
-  // if(cubeX >= 5 || cubeX <= -5 || cubeY>= 5 || cubeY <= -5 || cubeZ >=5 || cubeZ <= -5 ){
-  //	   if(frontback ==1) {
-  //		   cubeX -=0.3;
-  //		   cubeY -=0.3;
-  //		   cubeZ -= 0.3;
-  //		   frontback = 0;}
-  //	   else{
-  //		   cubeX += 0.3;
-  //		   cubeY+=0.3;
-  //		   cubeZ+=0.3;
-  //		   frontback = 1;}
-  // }
-  //   else{
-  //	if(frontback ==1){
-  //	   cubeX += 0.03;
-  //	   cubeY+= 0.03;
-  //	   cubeZ+= 0.03;}
-  //	else{
-  //		cubeX -= 0.03;
-  //         cubeY-= 0.03;
-  //           cubeZ-= 0.03;
-  //	}
-  // }
   // Call display function to redraw the cube
   
   glutPostRedisplay();
@@ -280,13 +109,10 @@ int main(int argc, char **argv)
 {
 
   s1 = createsystem(s1);
-  printf("h1\n");
-  // initParticles();
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
   glutInitWindowSize(800, 600);
-  glutCreateWindow("Moving Cube");
-
+  glutCreateWindow("Gravity Simulation");
   glutDisplayFunc(display);
   glutTimerFunc(0, update, 0);
 

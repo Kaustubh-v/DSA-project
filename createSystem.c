@@ -66,27 +66,27 @@ system_node *createsystem(system_node *s1)
             }
             else if (j == 1)
             {
-                p1->pos[0] = strtof(rows[i].fields[j], NULL);
+                p1->pos[0] = strtold(rows[i].fields[j], NULL);
             }
             else if (j == 2)
             {
-                p1->pos[1] = strtof(rows[i].fields[j], NULL);
+                p1->pos[1] = strtold(rows[i].fields[j], NULL);
             }
             else if (j == 3)
             {
-                p1->pos[2] = strtof(rows[i].fields[j], NULL);
+                p1->pos[2] = strtold(rows[i].fields[j], NULL);
             }
             else if (j == 4)
             {
-                p1->vel[0] = strtof(rows[i].fields[j], NULL);
+                p1->vel[0] = strtold(rows[i].fields[j], NULL);
             }
             else if (j == 5)
             {
-                p1->vel[1] = strtof(rows[i].fields[j], NULL);
+                p1->vel[1] = strtold(rows[i].fields[j], NULL);
             }
             else if (j == 6)
             {
-                p1->vel[2] = strtof(rows[i].fields[j], NULL);
+                p1->vel[2] = strtold(rows[i].fields[j], NULL);
             }
 
             s1->p[i] = p1;

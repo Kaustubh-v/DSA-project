@@ -9,13 +9,13 @@ typedef struct Particle
 { /* Particle Node */
     long double mass;
     long double vel[3];
-    float pos[3];
+    long double pos[3];
 } Particle;
 
 typedef struct BarnesHut_node
 {
     long double mass;
-    float com_pos[3];
+    long double com_pos[3];
     long double com_vel[3];
 } BarnesHut_node;
 typedef struct OctreeNode
@@ -24,9 +24,9 @@ typedef struct OctreeNode
     BarnesHut_node *bhn;
     struct OctreeNode *children[8];
     // float position[3];
-    float bound_top[3];
-    float bound_bottom[3];
-    float bound_mid[3];
+    long double bound_top[3];
+    long double bound_bottom[3];
+    long double bound_mid[3];
     int elements;
 } OctreeNode;
 
@@ -46,26 +46,21 @@ typedef struct BarnesHut
     OctreeNode *octree_root;
 } BarnesHut;
 
-typedef struct position{
-  float posx;
-  float posy;
-  float posz;
-}positions;
 // positions *par[PRTCNT];
 
 
 system_node *createsystem(system_node *s1);
-BarnesHut *BarnesHut_malloc(float min_x, float max_x, float min_y, float max_y, float min_z, float max_z);
+BarnesHut *BarnesHut_malloc(long double min_x, long double max_x, long double min_y, long double max_y, long double min_z, long double max_z);
 void BarnesHut__free(OctreeNode *node);
 void BarnesHut_free(BarnesHut *bh);
-int BarnesHut_add(BarnesHut *BH, float x, float y, float z, long double mass , long double velx ,long double vely ,long double velz) ;
+int BarnesHut_add(BarnesHut *BH, long double x, long double y, long double z, long double mass , long double velx ,long double vely ,long double velz) ;
 void BarnesHut_Tree(OctreeNode *node);
 void BarnesHut_make(BarnesHut *bh);
 void BarnesHut_force(OctreeNode *node, system_node *s, BarnesHut_node *bhn, long double *fx, long double *fy, long double *fz);
-void BarnesHut_getNewPos(BarnesHut *bh, system_node *s, float x, float y, float z,long double velx,long double vely,long double velz, long double mass, long double *fx, long double *fy, long double *fz , int i);
-OctreeNode *Octree_malloc_node(float x1, float y1, float z1, float x2, float y2, float z2);
-int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, float z);
-int insert_Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, float z);
+void BarnesHut_getNewPos(BarnesHut *bh, system_node *s, long double x, long double y, long double z,long double velx,long double vely,long double velz, long double mass, long double *fx, long double *fy, long double *fz , int i);
+OctreeNode *Octree_malloc_node(long double x1, long double x2, long double y1, long double y2, long double z1, long double z2);
+int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, long double x, long double y, long double z);
+int insert_Octree_node(OctreeNode *oct, BarnesHut_node *BHN, long double x, long double y, long double z);
 void destroy_Octree(OctreeNode *oct);
 void update(int value);
 void display();

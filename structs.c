@@ -1,6 +1,6 @@
 #include "structs.h"
 
-OctreeNode *Octree_malloc_node(float x1, float y1, float z1,float x2, float y2, float z2)
+OctreeNode *Octree_malloc_node(long double x1, long double x2, long double y1,long double y2, long double z1, long double z2)
 {
     printf("----octree malloced----\n");
     OctreeNode *oct = (OctreeNode *)malloc(sizeof(OctreeNode));
@@ -31,7 +31,7 @@ OctreeNode *Octree_malloc_node(float x1, float y1, float z1,float x2, float y2, 
     return oct;
 }
 
-int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, float z)
+int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, long double x, long double y, long double z)
 {   
     printf("insert -- octree\n");
     // Case 1: If unsuccessful malloc -
@@ -40,7 +40,7 @@ int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, 
         return 0;
     }
     // Case 2: If elements = 0, i.e., Number of leaf nodes of current node are 0 -
-    if (!oct->elements)
+    if (oct->elements == 0)
     {
         // oct->bhn->com_pos[0] = x;
         // oct->bhn->com_pos[1] = y;
@@ -54,6 +54,7 @@ int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, 
         // Case A: There is one leaf node -
         if (oct->elements == 1)
         {
+            printf("in ele 1\n");
             // Taking the inital node's position to reallocate it to another subnode
             insert_Octree_node(oct, oct->bhn, oct->bhn->com_pos[0], oct->bhn->com_pos[1], oct->bhn->com_pos[2]);
             // oct->bhn = BHN;
@@ -64,12 +65,12 @@ int insert__Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, 
     return (oct->elements);
 }
 
-int insert_Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, float z)
+int insert_Octree_node(OctreeNode *oct, BarnesHut_node *BHN, long double x, long double y, long double z)
 {
     printf("inserting _ octree\n");
     int flag = 0; /* Cases for insertion */
-    float bot_x, bot_y, bot_z;
-    float top_x, top_y, top_z;
+    long double bot_x, bot_y, bot_z;
+    long double top_x, top_y, top_z;
     if (x >= oct->bound_mid[0])
     {
         flag += 1;
@@ -106,7 +107,8 @@ int insert_Octree_node(OctreeNode *oct, BarnesHut_node *BHN, float x, float y, f
     if (!oct->children[flag])
     {
         //allocating space to new node
-        oct->children[flag] = Octree_malloc_node(bot_x, bot_y, bot_z, top_x, top_y, top_z);
+        printf("flag = %d\n" , flag);
+        oct->children[flag] = Octree_malloc_node(bot_x, top_x, bot_y, top_y, bot_z, top_z);
     }
     // Verifies successful malloc as well
     return insert__Octree_node(oct->children[flag], BHN, BHN->com_pos[0], BHN->com_pos[1], BHN->com_pos[2]);

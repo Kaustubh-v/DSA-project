@@ -1,6 +1,6 @@
 #include "structs.h"
 
-BarnesHut *BarnesHut_malloc(float min_x, float max_x, float min_y, float max_y, float min_z, float max_z)
+BarnesHut *BarnesHut_malloc(long double min_x, long double max_x, long double min_y, long double max_y, long double min_z, long double max_z)
 {   
     printf("---Barnes hut mallocing---\n");
     BarnesHut *bh = (BarnesHut *)malloc(sizeof(BarnesHut));
@@ -36,7 +36,7 @@ void BarnesHut_free(BarnesHut *bh)
     free(bh);
 }
 
-int BarnesHut_add(BarnesHut *BH, float x, float y, float z, long double mass , long double velx ,long double vely ,long double velz )
+int BarnesHut_add(BarnesHut *BH, long double x, long double y, long double z, long double mass , long double velx ,long double vely ,long double velz )
 {
     printf("barneshut add\n");
     BarnesHut_node *temp = (BarnesHut_node *)malloc(sizeof(BarnesHut_node));
@@ -117,16 +117,16 @@ void BarnesHut_force(OctreeNode *node, system_node *s, BarnesHut_node *bhn, long
     if (!node)
         return;
     BarnesHut_node node_bhn = *(BarnesHut_node *)(node->bhn); // this should give all the elements(cluster) not just 1 particle
-    printf("particle in root  = %f, %f, %f\n" , node_bhn.com_pos[0],node_bhn.com_pos[1],node_bhn.com_pos[2]);
+    printf("particle in root  = %Lf, %Lf, %Lf\n" , node_bhn.com_pos[0],node_bhn.com_pos[1],node_bhn.com_pos[2]);
 
-    float radius = sqrtf(powf(node_bhn.com_pos[0] - bhn->com_pos[0], 2) + powf(node_bhn.com_pos[1] - bhn->com_pos[1], 2) + powf(node_bhn.com_pos[2] - bhn->com_pos[2], 2));
-    printf("radius = %f\n" , radius);
+    long double radius = sqrtf(powf(node_bhn.com_pos[0] - bhn->com_pos[0], 2) + powf(node_bhn.com_pos[1] - bhn->com_pos[1], 2) + powf(node_bhn.com_pos[2] - bhn->com_pos[2], 2));
+    printf("radius = %Lf\n" , radius);
     if (radius == 0)
         return;
 
     float width = ((node->bound_top[0] - node->bound_bottom[0]) + (node->bound_top[1] - node->bound_bottom[1]) + (node->bound_top[2] - node->bound_bottom[2])) / 3;
     printf("width = %f\n" ,width );
-    if (width / radius < 0.8)
+    if (width / radius < 0.5)
     {
         // call update function of integration here , no need to keep the updated force
         value_update(&node_bhn, bhn , fx , fy , fz);
@@ -154,7 +154,7 @@ void BarnesHut_force(OctreeNode *node, system_node *s, BarnesHut_node *bhn, long
    
 }
 
-void BarnesHut_getNewPos(BarnesHut *bh, system_node *s, float x, float y, float z, long double velx,long double vely,long double velz, long double mass, long double *fx, long double *fy, long double *fz , int i)
+void BarnesHut_getNewPos(BarnesHut *bh, system_node *s, long double x, long double y, long double z, long double velx,long double vely,long double velz, long double mass, long double *fx, long double *fy, long double *fz , int i)
 {
     printf("barnes hut new pos\n");
     if (!bh)
@@ -169,7 +169,7 @@ void BarnesHut_getNewPos(BarnesHut *bh, system_node *s, float x, float y, float 
     bhn.com_vel[2] = velz;
     BarnesHut_force(bh->octree_root, s, &bhn, fx, fy, fz);
     long double *force_arr[3] = {fx, fy, fx};
-    printf("pos = %f , %f , %f\n" , bhn.com_pos[0] , bhn.com_pos[1] , bhn.com_pos[2]);
+    printf("pos = %Lf , %Lf , %Lf\n" , bhn.com_pos[0] , bhn.com_pos[1] , bhn.com_pos[2]);
     calculate_acc_velocity(&bhn, force_arr);
 
     for (int j = 0; j < 3; j++)

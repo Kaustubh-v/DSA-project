@@ -1,6 +1,6 @@
 #include <math.h>
 #include "structs.h"
-#define DELTA_T 1
+#define DELTA_T 0.4
 
 long double G = 0.00000000067;
 
@@ -34,20 +34,20 @@ void calculate_position( BarnesHut_node *bhn2)
 	for (int i = 0; i < 3; i++)
 	{
 		bhn2->com_pos[i] +=  bhn2->com_vel[i] * DELTA_T;
-		printf("position is calculated %f\n" , bhn2->com_pos[i]);
+		printf("position is calculated %Lf\n" , bhn2->com_pos[i]);
 	}
 
 	
 }
 
-float calculate_distance(float pos1[], float pos2[])
+float calculate_distance(long double pos1[], long double pos2[])
 {
 
-	float x = pos1[0] - pos2[0];
-	float y = pos1[1] - pos2[1];
-	float z = pos1[2] - pos2[2];
+	long double x = pos1[0] - pos2[0];
+	long double y = pos1[1] - pos2[1];
+	long double z = pos1[2] - pos2[2];
 
-	float distance = sqrtf(x * x + y * y + z * z);
+	long double distance = sqrtf(x * x + y * y + z * z);
 
 	return distance;
 }
@@ -55,9 +55,9 @@ float calculate_distance(float pos1[], float pos2[])
 void calculate_force(BarnesHut_node *bhn1, BarnesHut_node *bhn2 , long double *force[])
 {
 
-		printf("the vel of bhn2 = %Lf , and the position = %f\n" , bhn2->com_vel[0] , bhn2->com_pos[0]);
-	float distance = calculate_distance(bhn1->com_pos, bhn2->com_pos);
-	printf("distance = %f\n" , distance);
+		printf("the vel of bhn2 = %Lf , and the position = %Lf\n" , bhn2->com_vel[0] , bhn2->com_pos[0]);
+	long double distance = calculate_distance(bhn1->com_pos, bhn2->com_pos);
+	printf("distance = %Lf\n" , distance);
 	long double r_vector[3];
 
 	for (int i = 0; i < 3; i++)
@@ -86,8 +86,8 @@ long double *value_update(BarnesHut_node *bhn1, BarnesHut_node *bhn2 , long doub
 	force[1] = fy;
 	force[2] = fz;
 
-	printf("printing all the info of bhn1 : %Lf , %f , %f, %f , %Lf , %Lf , %Lf\n", bhn1->mass , bhn1->com_pos[0], bhn1->com_pos[1], bhn1->com_pos[2], bhn1->com_vel[0], bhn1->com_vel[1],bhn1->com_vel[2]);
-	printf("printing all the info of bhn2 : %Lf , %f , %f, %f , %Lf , %Lf , %Lf\n", bhn2->mass , bhn2->com_pos[0], bhn2->com_pos[1], bhn2->com_pos[2], bhn2->com_vel[0], bhn2->com_vel[1],bhn2->com_vel[2]);
+	printf("printing all the info of bhn1 : %Lf , %Lf , %Lf, %Lf , %Lf , %Lf , %Lf\n", bhn1->mass , bhn1->com_pos[0], bhn1->com_pos[1], bhn1->com_pos[2], bhn1->com_vel[0], bhn1->com_vel[1],bhn1->com_vel[2]);
+	printf("printing all the info of bhn2 : %Lf , %Lf , %Lf, %Lf , %Lf , %Lf , %Lf\n", bhn2->mass , bhn2->com_pos[0], bhn2->com_pos[1], bhn2->com_pos[2], bhn2->com_vel[0], bhn2->com_vel[1],bhn2->com_vel[2]);
 	calculate_acc_velocity(bhn2, force);
 	calculate_position( bhn2);
 	calculate_force(bhn1, bhn2 , force);
